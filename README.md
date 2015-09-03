@@ -6,7 +6,7 @@ $ gulp
 ```
 
 Verificar en  
-[localhost:4000](http://localhost:4000)  
+[localhost:4000/app](http://localhost:4000/app)  
 
 Hacer modificaciones en:  
 **app/html.index**  
