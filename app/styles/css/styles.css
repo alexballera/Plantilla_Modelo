@@ -1,0 +1,5 @@
+@import url(../lib/normalize.css);
+body {
+  color: black;
+  font-size: 3em;
+}

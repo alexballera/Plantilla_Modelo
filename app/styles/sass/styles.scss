@@ -1,0 +1,9 @@
+@charset "UTF-8";
+@import "../lib/normalize.css";
+
+$color: black;
+
+body {
+  color : $color;
+  font-size: 3em;
+}
