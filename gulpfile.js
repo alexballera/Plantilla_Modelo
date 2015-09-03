@@ -12,6 +12,7 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
+// Express
 gulp.task('express', function() {
   var express = require('express');
   var app = express();
@@ -20,6 +21,7 @@ gulp.task('express', function() {
   app.listen(4000, '0.0.0.0');
 });
 
+// Livereload
 var tinylr;
 gulp.task('livereload', function() {
   tinylr = require('tiny-lr')();
@@ -35,7 +37,6 @@ function notifyLiveReload(event) {
     }
   });
 }
-
 // Styles
 gulp.task('styles', function() {
   return sass('app/styles/sass/styles.scss', { style: 'expanded' })
@@ -68,16 +69,22 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
+// Clean
+gulp.task('clean', function(cb) {
+    del(['app/styles/css/styles.css', 'app/scripts/js/main.js'], cb)
+});
+
+// Watch
 gulp.task('watch', function() {
   gulp.watch('app/styles/sass/styles.scss', ['styles']);
   gulp.watch('app/scripts/main.js', ['scripts']);
   gulp.watch('app/assets/images/*', ['images']);
   gulp.watch('app/index.html', notifyLiveReload);
-  gulp.watch('app/styles/css/styles.css', notifyLiveReload);
-  gulp.watch('app/scripts/js/main.js', notifyLiveReload);
+  gulp.watch('app/styles/css/*', notifyLiveReload);
+  gulp.watch('app/scripts/js/*', notifyLiveReload);
   gulp.watch('app/images/*', notifyLiveReload);
 });
 
 // Default task
-gulp.task('default', ['styles', 'scripts', 'images', 'express', 'livereload', 'watch'], function() {
+gulp.task('default', ['styles', 'scripts', 'images', 'express', 'livereload', 'watch', 'clean'], function() {
 });
