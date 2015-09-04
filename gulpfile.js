@@ -19,6 +19,9 @@ var globs = {
   html: 'app/index.html',
   image: 'app/assets/images/*',
   folder: [
+    'dist/styles/css',
+    'dist/scripts/js',
+    'dist/images',
     'app/styles/css',
     'app/scripts/js',
     'app/images'
@@ -57,9 +60,11 @@ gulp.task('styles', function() {
   return sass(globs.sass, { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest(globs.folder[0]))
+    .pipe(gulp.dest(globs.folder[3]))
     .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
     .pipe(gulp.dest(globs.folder[0]))
+    .pipe(gulp.dest(globs.folder[3]))
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
@@ -70,9 +75,11 @@ gulp.task('scripts', function() {
     .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(gulp.dest(globs.folder[1]))
+    .pipe(gulp.dest(globs.folder[4]))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(gulp.dest(globs.folder[1]))
+    .pipe(gulp.dest(globs.folder[4]))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
@@ -81,6 +88,7 @@ gulp.task('images', function() {
   return gulp.src(globs.image)
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
     .pipe(gulp.dest(globs.folder[2]))
+    .pipe(gulp.dest(globs.folder[5]))
     .pipe(notify({ message: 'Images task complete' }));
 });
 
