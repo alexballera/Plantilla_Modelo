@@ -12,16 +12,17 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
-// Express
+// Server
 gulp.task('express', function() {
   var express = require('express');
   var app = express();
   app.use(require('connect-livereload')({port: 35729}));
-  app.use(express.static(__dirname));
+  app.use(express.static(__dirname + '/app'));
   app.listen(4000, '0.0.0.0');
+  console.log('Saliendo en http://localhost:4000');
 });
 
-// Livereload
+// Livereload & Notify
 var tinylr;
 gulp.task('livereload', function() {
   tinylr = require('tiny-lr')();
